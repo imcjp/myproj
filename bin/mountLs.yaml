@@ -1,0 +1,27 @@
+fs:
+  build:
+  - 0source
+  - 1env
+  dev:
+  - 0source
+  - 1env
+  - 2dev
+  pridev:
+  - 0source
+  - 1env
+  - 2pridev
+  run:
+  - 0source
+  - 1env
+  - 2dev
+  - 3run
+option:
+  availMethods:
+  - unionFs
+  - overlayFS
+  enable:
+  - run
+  method: unionFs
+  sourceDir: projStk
+  tmpDir: tmp
+  workspaceDir: ws
