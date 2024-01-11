@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 接收的参数为目标文件夹的名称
-name=$1
+name=${1:-myproj}
 
 # GitHub仓库地址
 repo_url="https://github.com/imcjp/myproj.git"
@@ -21,8 +21,8 @@ cd $name
 # 创建所需的子文件夹
 mkdir -p ws tmp projStk/{0source,1env,2dev,3run}
 
-# 进入projStk文件夹
-cd projStk
+# 进入ws文件夹
+cd ws
 
 # 再次创建子文件夹
 mkdir -p build dev run
