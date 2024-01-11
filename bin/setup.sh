@@ -30,10 +30,17 @@ mkdir -p build dev run
 # 回到$name文件夹
 cd ..
 
-# 设置bin目录下的脚本为可执行
-chmod +x bin/main bin/init_env.sh bin/startup.sh
 
-# 输出完成消息
-echo "仓库已克隆，目录已创建，脚本已设置为可执行，全部操作成功完成。"
+# 设置bin目录下的脚本为可执行
+# 假设bin目录在仓库的根目录下
+if [ -d "bin" ]; then
+  chmod +x bin/main bin/init_env.sh bin/startup.sh
+  echo "仓库已克隆，目录已创建，脚本已设置为可执行，全部操作成功完成。"
+  echo "请手动将 $(pwd)/init_env.sh 添加到home目录下的.bashrc文件中，以便可以使用 'hdf' 命令"
+  echo "请手动将 $(pwd)/startup.sh 添加到自启动项，以便开机时挂载目录"
+else
+  echo "bin目录不存在。"
+fi
+
 
 # 脚本结束
