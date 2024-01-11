@@ -1,27 +1,39 @@
 #!/bin/bash
 
-hdf_init_scp_path="${BASH_SOURCE}"
-# 解析软链接，获取脚本的实际物理路径
-while [ -h "$hdf_init_scp_path" ]; do
-  hdf_scp_dir="$( cd -P "$( dirname "$hdf_init_scp_path" )" && pwd )"
-  hdf_init_scp_path="$(readlink "$hdf_init_scp_path")"
-  [[ $hdf_init_scp_path != /* ]] && hdf_init_scp_path="$hdf_scp_dir/$hdf_init_scp_path"
-done
-hdf_scp_dir="$( cd -P "$( dirname "$hdf_init_scp_path" )" && pwd )"
-projPath="$(dirname "$hdf_scp_dir")"
-# 启动脚本
-output=$(python "${hdf_scp_dir}/mount.py" all "${projPath}")
-status=$?
-# 检查Python脚本是否成功执行
-if [ $status -eq 0 ]; then
-  # 如果Python脚本成功执行，那么执行它的输出
-  # eval "$output"
-  eval "$output"
-else
-  # 如果Python脚本执行失败，打印错误消息并退出
-  current_date=$(date +"%Y-%m-%d")
-  echo "[${current_date}]"
-  echo "Python script "${scpPath}/mount.py" exited with status $status" >> err.log
-  echo "$output" >> err.log
-  exit $status
+# 接收的参数为目标文件夹的名称
+name=$1
+
+# GitHub仓库地址
+repo_url="https://github.com/imcjp/myproj.git"
+
+# 克隆GitHub仓库到指定的$name文件夹
+git clone $repo_url $name
+
+# 检查git clone命令是否成功执行
+if [ $? -ne 0 ]; then
+    echo "Git克隆失败。请检查仓库是否存在以及你是否可以访问互联网。"
+    exit 1
 fi
+
+# 进入克隆的仓库目录
+cd $name
+
+# 创建所需的子文件夹
+mkdir -p ws tmp projStk/{0source,1env,2dev,3run}
+
+# 进入projStk文件夹
+cd projStk
+
+# 再次创建子文件夹
+mkdir -p build dev run
+
+# 回到$name文件夹
+cd ..
+
+# 设置bin目录下的脚本为可执行
+chmod +x bin/main bin/init_env.sh bin/startup.sh
+
+# 输出完成消息
+echo "仓库已克隆，目录已创建，脚本已设置为可执行，全部操作成功完成。"
+
+# 脚本结束
