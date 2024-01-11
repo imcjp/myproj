@@ -36,8 +36,8 @@ cd ..
 if [ -d "bin" ]; then
   chmod +x bin/main bin/init_env.sh bin/startup.sh
   echo "仓库已克隆，目录已创建，脚本已设置为可执行，全部操作成功完成。"
-  echo "请手动将 'source $(pwd)/init_env.sh' 添加到home目录下的.bashrc文件中，以便可以使用 'hdf' 命令"
-  echo "请手动将 '$(pwd)/startup.sh' 添加到自启动项，以便开机时挂载目录"
+  echo "请手动将 'source $(pwd)/bin/init_env.sh' 添加到home目录下的.bashrc文件中并重新连接，以便可以使用 'hdf' 命令"
+  echo "请手动将 '$(pwd)/bin/startup.sh' 添加到自启动项，以便开机时挂载目录"
 else
   echo "bin目录不存在。"
 fi
