@@ -8,7 +8,7 @@ curl -s https://raw.githubusercontent.com/imcjp/myproj/main/bin/setup.sh | bash 
 
 部署后的配置，设部署后的路径为path=[absPath]/[name]：
 
-1. 配置到当前交互式会话环境，配置后可以使用hdf命令。将如下命令添加到home目录下的.bashrc文件中即可：
+1. 配置到当前交互式会话环境，配置后可以使用 **hdf** 命令。将如下命令添加到home目录下的.bashrc文件中即可：
    
    source [absPath]/[name]/bin/init_env.sh
    
